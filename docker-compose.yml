@@ -9,31 +9,34 @@ services:
       - ./:/app/ms-payment
     environment:
       - PORT=3004
-      - DB_HOST=mongodb-ms-payment
+      - DB_HOST=mysql-ms-payment
       - DB_USER=root
       - DB_PASSWORD=secret
       - DB_NAME=ms-payment
       - JWT_SECRET=MTk4OGExOTZkMWYyOWZjZjlmOTcwMWVjZWRjMzc1MzZkOGM0MmFjMjQ0NjcyZjIzZDQwOGU4YTQ1YWQ3NTRjZA==
     depends_on:
-      - mongodb-ms-payment
+      - mysql-ms-payment
 
-  mongodb-ms-payment:
-    image: mongo:5
+  mysql-ms-payment:
+    image: mysql:8
     ports:
-      - 27023:27017
+      - 3308:3306
     volumes:
-      - mongodb-payment-volume-docker:/data/db
+      - mysql-payment-volume-docker:/var/lib/mysql
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
 
-  mongodb-ms-payment-test:
-    image: mongo:5
+  mysql-ms-payment-test:
+    image: mysql:8
     ports:
-      - 27024:27017
+      - 3309:3306
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
 
 volumes:
-  mongodb-payment-volume-docker:
+  mysql-payment-volume-docker:
+
+networks: 
+  default:
+    name: trooper-network
+    external: true
