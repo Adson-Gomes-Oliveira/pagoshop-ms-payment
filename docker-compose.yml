@@ -30,7 +30,7 @@ services:
   mongodb-ms-payment-test:
     image: mongo:5
     ports:
-      - 27023:27017
+      - 27024:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=secret
