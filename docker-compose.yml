@@ -4,7 +4,7 @@ services:
     container_name: ms-payment
     build: ./
     ports:
-      - 3001:3001
+      - 3004:3004
     volumes:
       - ./:/app/ms-payment
     environment:
@@ -20,7 +20,7 @@ services:
   mongodb-ms-payment:
     image: mongo:5
     ports:
-      - 27017:27017
+      - 27023:27017
     volumes:
       - mongodb-payment-volume-docker:/data/db
     environment:
@@ -30,7 +30,7 @@ services:
   mongodb-ms-payment-test:
     image: mongo:5
     ports:
-      - 27018:27017
+      - 27023:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=secret
