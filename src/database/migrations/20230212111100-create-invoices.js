@@ -9,22 +9,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      processHash: {
+        type: Sequelize.STRING,
+        field: 'process_hash',
+      },
       name: {
         type: Sequelize.STRING,
       },
       cpf: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.STRING,
       },
       payment_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'payments',
           key: 'id',
         },
       },
-      description: {
+      buyerAddress: {
         type: Sequelize.JSON,
+        field: 'buyer_address',
+      },
+      productsOrdered: {
+        type: Sequelize.JSON,
+        field: 'products_ordered',
       },
       createdAt: {
         allowNull: false,

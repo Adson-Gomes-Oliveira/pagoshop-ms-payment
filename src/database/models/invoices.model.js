@@ -1,9 +1,11 @@
 /* eslint-disable no-shadow */
 const Invoices = (sequelize, DataTypes) => {
   const Invoices = sequelize.define('Invoices', {
+    processHash: DataTypes.STRING,
     name: DataTypes.STRING,
     cpf: DataTypes.STRING,
-    description: DataTypes.JSON,
+    buyerAddress: DataTypes.JSON,
+    productsOrdered: DataTypes.JSON,
     paymentId: DataTypes.INTEGER,
   }, {
     underscored: true,
