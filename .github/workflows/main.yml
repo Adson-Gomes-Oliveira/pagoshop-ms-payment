@@ -1,0 +1,24 @@
+name: trooper-payment-workflow
+on: [push, pull_request]
+jobs:
+  check-tests:
+    name: Tests for payments and invoices
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Creating network
+        run: docker network create trooper-network
+
+      - name: Up database container
+        run: docker-compose up -d mysql-ms-payment-test
+
+      - name: Test code
+        run: npm test
+
+      - name: Drop database
+        run: npm run pre-end-test

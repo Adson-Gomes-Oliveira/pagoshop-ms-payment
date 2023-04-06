@@ -23,13 +23,13 @@ const create = async (req, res) => {
     .json(response);
 };
 
-// const confirmPayment = async (req, res) => {
-//   const { id } = req.params;
-//   const payload = req.body;
+const confirmPayment = async (req, res) => {
+  const { id } = req.params;
+  const payload = req.body;
 
-//   const response = await PaymentsServices.confirmPayment(id, payload);
-//   return res.status(HTTPStatus.OK).json(response);
-// };
+  const response = await PaymentsServices.confirmPayment(id, payload);
+  return res.status(HTTPStatus.OK).json(response);
+};
 
 const cancelPayment = async (req, res) => {
   const { id } = req.params;
@@ -45,6 +45,6 @@ module.exports = {
   findAll,
   findById,
   create,
-  // confirmPayment,
+  confirmPayment,
   cancelPayment,
 };

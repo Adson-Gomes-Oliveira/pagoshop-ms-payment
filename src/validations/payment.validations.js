@@ -17,6 +17,7 @@ const payloadValidation = (payload) => {
 
 const confirmPaymentValidation = (payload) => {
   const { error } = JOI.object({
+    processHash: JOI.string().required(),
     name: JOI.string().required(),
     cpf: JOI.string().required(),
     paymentId: JOI.number().required(),

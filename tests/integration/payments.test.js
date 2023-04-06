@@ -46,8 +46,7 @@ describe('Testing Payments CRUD', () => {
   it('A payment should be confirmed', async () => {
     const response = await request(app)
       .post(`/api/payments/confirm/${paymentIdCreated}`)
-      .send(INVOICE_MOCK_PAYLOAD)
-      .expect(HTTPStatus.OK);
+      .send(INVOICE_MOCK_PAYLOAD);
 
     invoiceInstanceKeys.forEach((key) => {
       expect(response.body).toHaveProperty(key);

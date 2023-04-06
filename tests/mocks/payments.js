@@ -19,16 +19,46 @@ const PAYMENT_MOCK_PAYLOAD = {
 
 const INVOICE_MOCK_INSTANCE = {
   id: 1,
+  processHash: 'sad1s21a2dd12s1a3a3s2s22',
   name: 'Larissa Velch',
   cpf: '98845671466',
-  description: {},
+  buyerAddress: {
+    street: 'no_street',
+    number: 'no_number',
+    cep: 'no_cep',
+    more_info: 'no_info',
+    city: 'no_city',
+    state: 'SP',
+  },
+  productsOrdered: [
+    {
+      product: 'Samsung S20 FE',
+      quantity: 10,
+      price: 1500,
+    },
+  ],
   paymentId: 1,
 };
 
 const INVOICE_MOCK_PAYLOAD = {
+  processHash: 'sad1s21a2dd12s1a3a3s2s22',
   name: 'Larissa Velch',
   cpf: '98845671466',
-  description: {},
+  buyerAddress: {
+    street: 'no_street',
+    number: 'no_number',
+    cep: 'no_cep',
+    more_info: 'no_info',
+    city: 'no_city',
+    state: 'SP',
+  },
+  productsOrdered: [
+    {
+      product: 'Samsung S20 FE',
+      quantity: 10,
+      price: 1500,
+    },
+  ],
   paymentId: 1,
 };
 
