@@ -1,4 +1,5 @@
 const { Invoices } = require('../database/models');
+const sendPaymentToInvoice = require('./sendPaymentToInvoice.producer.service');
 
 const findByProcessHash = async (processHash) => {
   const response = await Invoices.findOne({ where: { processHash } });
@@ -22,11 +23,26 @@ const createInvoiceDefault = async (payload) => {
   return updateInvoice;
 };
 
-const updateInvoice = async (id, payload) => {
+const updateInvoice = async (invoiceExist, payload) => {
+  if (!invoiceExist) {
+    const defaultInvoice = await createInvoiceDefault(payload);
+    return defaultInvoice;
+  }
+
   const response = await Invoices.update(
     { ...payload.messageContent },
-    { where: { id } },
+    { where: { id: invoiceExist.id } },
   );
+
+  const invoiceUpdated = await Invoices.findByPk(invoiceExist.id);
+
+  if (
+    !Object.values(invoiceUpdated.dataValues).includes('')
+    && invoiceUpdated.dataValues.productsOrdered.length > 0
+    && Object.keys(invoiceUpdated.dataValues.buyerAddress).length > 0
+  ) {
+    sendPaymentToInvoice('invoiceDelivery', invoiceUpdated.dataValues);
+  }
 
   return response;
 };

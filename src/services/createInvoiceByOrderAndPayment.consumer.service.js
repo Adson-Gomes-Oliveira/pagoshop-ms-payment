@@ -13,15 +13,8 @@ const createInvoiceByOrderAndPayment = async (queue, exchange) => {
     if (actualMessage) {
       const invoiceExist = await InvoicesServices.findByProcessHash(actualMessage.processHash);
 
-      if (invoiceExist) {
-        await InvoicesServices.updateInvoice(invoiceExist.id, actualMessage);
-        consumerChannel.ack(msg);
-      }
-
-      if (!invoiceExist) {
-        await InvoicesServices.createInvoiceDefault(actualMessage);
-        consumerChannel.ack(msg);
-      }
+      await InvoicesServices.updateInvoice(invoiceExist, actualMessage);
+      consumerChannel.ack(msg);
     }
   });
 };
