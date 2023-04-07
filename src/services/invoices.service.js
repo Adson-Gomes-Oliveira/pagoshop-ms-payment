@@ -12,13 +12,13 @@ const createInvoiceDefault = async () => {
   return response;
 };
 
-const updateInvoice = async (invoiceExist, payload) => {
+const updateInvoice = async (id, payload) => {
   const response = await Invoices.update(
     { ...payload.messageContent },
-    { where: { id: invoiceExist.id } },
+    { where: { id } },
   );
 
-  const invoiceUpdated = await Invoices.findByPk(invoiceExist.id);
+  const invoiceUpdated = await Invoices.findByPk(id);
 
   if (
     !Object.values(invoiceUpdated.dataValues).includes('')
