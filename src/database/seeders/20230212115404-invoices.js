@@ -5,7 +5,6 @@ module.exports = {
     await queryInterface.bulkInsert('invoices', [
       {
         id: Sequelize.literal('DEFAULT'),
-        process_hash: 'no_hash',
         name: 'Sarah Araujo',
         cpf: '42942304790',
         payment_id: 1,
@@ -27,7 +26,6 @@ module.exports = {
       },
       {
         id: Sequelize.literal('DEFAULT'),
-        process_hash: 'no_hash',
         name: 'Vitor Santos',
         cpf: '78965412301',
         buyer_address: JSON.stringify({

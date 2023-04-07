@@ -9,10 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      processHash: {
-        type: Sequelize.STRING,
-        field: 'process_hash',
-      },
       name: {
         type: Sequelize.STRING,
       },
