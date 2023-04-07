@@ -9,11 +9,10 @@ const createInvoiceByOrderAndPayment = async (queue, exchange) => {
   await consumerChannel.consume(queue, async (msg) => {
     const msgContent = msg.content.toString();
     const actualMessage = JSON.parse(msgContent);
+    const { invoiceId: _, ...messageWithoutInvoiceId } = actualMessage;
 
     if (actualMessage) {
-      const invoiceExist = await InvoicesServices.findByProcessHash(actualMessage.processHash);
-
-      await InvoicesServices.updateInvoice(invoiceExist, actualMessage);
+      await InvoicesServices.updateInvoice(actualMessage.invoiceId, messageWithoutInvoiceId);
       consumerChannel.ack(msg);
     }
   });

@@ -1,34 +1,18 @@
 const { Invoices } = require('../database/models');
 const sendPaymentToInvoice = require('./sendPaymentToInvoice.producer.service');
 
-const findByProcessHash = async (processHash) => {
-  const response = await Invoices.findOne({ where: { processHash } });
-  return response;
-};
-
-const createInvoiceDefault = async (payload) => {
+const createInvoiceDefault = async () => {
   const response = await Invoices.create({
-    processHash: payload.processHash,
     name: '',
     cpf: '',
     buyerAddress: {},
     productsOrdered: [],
   });
 
-  const updateInvoice = await Invoices.update(
-    { ...payload.messageContent },
-    { where: { id: response.id } },
-  );
-
-  return updateInvoice;
+  return response;
 };
 
 const updateInvoice = async (invoiceExist, payload) => {
-  if (!invoiceExist) {
-    const defaultInvoice = await createInvoiceDefault(payload);
-    return defaultInvoice;
-  }
-
   const response = await Invoices.update(
     { ...payload.messageContent },
     { where: { id: invoiceExist.id } },
@@ -49,6 +33,5 @@ const updateInvoice = async (invoiceExist, payload) => {
 
 module.exports = {
   createInvoiceDefault,
-  findByProcessHash,
   updateInvoice,
 };
