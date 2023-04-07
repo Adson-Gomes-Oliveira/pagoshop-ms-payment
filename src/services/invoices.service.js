@@ -1,5 +1,4 @@
 const { Invoices } = require('../database/models');
-const sendPaymentToInvoice = require('./sendPaymentToInvoice.producer.service');
 
 const createInvoiceDefault = async () => {
   const response = await Invoices.create({
@@ -7,6 +6,7 @@ const createInvoiceDefault = async () => {
     cpf: '',
     buyerAddress: {},
     productsOrdered: [],
+    status: 'CREATING',
   });
 
   return response;
@@ -25,7 +25,10 @@ const updateInvoice = async (id, payload) => {
     && invoiceUpdated.dataValues.productsOrdered.length > 0
     && Object.keys(invoiceUpdated.dataValues.buyerAddress).length > 0
   ) {
-    sendPaymentToInvoice('invoiceDelivery', invoiceUpdated.dataValues);
+    await Invoices.update(
+      { status: 'CREATED' },
+      { where: { id: invoiceUpdated.id } },
+    );
   }
 
   return response;

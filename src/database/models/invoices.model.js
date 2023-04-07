@@ -6,6 +6,7 @@ const Invoices = (sequelize, DataTypes) => {
     buyerAddress: DataTypes.JSON,
     productsOrdered: DataTypes.JSON,
     paymentId: DataTypes.INTEGER,
+    status: DataTypes.STRING,
   }, {
     underscored: true,
     tableName: 'invoices',
