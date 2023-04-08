@@ -1,5 +1,10 @@
 const { Invoices } = require('../database/models');
 
+const findByCPF = async (cpf) => {
+  const response = await Invoices.find({ where: { cpf } });
+  return response;
+};
+
 const createInvoiceDefault = async () => {
   const response = await Invoices.create({
     name: '',
@@ -35,6 +40,7 @@ const updateInvoice = async (id, payload) => {
 };
 
 module.exports = {
+  findByCPF,
   createInvoiceDefault,
   updateInvoice,
 };

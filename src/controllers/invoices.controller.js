@@ -6,6 +6,14 @@ const createInvoiceDefault = async (req, res) => {
   return res.status(HTTPStatus.CREATED).json(response);
 };
 
+const findByCPF = async (req, res) => {
+  const payload = req.body;
+  const response = await InvoicesServices.findByCPF(payload);
+
+  return res.status(HTTPStatus.OK).json(response);
+};
+
 module.exports = {
   createInvoiceDefault,
+  findByCPF,
 };
