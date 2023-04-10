@@ -8,7 +8,7 @@ const {
 } = require('../../mocks/invoices');
 const HTTPStatus = require('../../../src/helpers/HTTP.status');
 
-describe('Testing Payments Services', () => {
+describe('Testing Invoices Services', () => {
   const keyListOfInvoiceInstance = Object.keys(INVOICE_MOCK_INSTANCE);
 
   describe('GET: A list of invoices based on cpf', () => {
