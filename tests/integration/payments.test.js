@@ -4,14 +4,10 @@ const HTTPStatus = require('../../src/helpers/HTTP.status');
 const {
   PAYMENT_MOCK_INSTANCE,
   PAYMENT_MOCK_PAYLOAD,
-  INVOICE_MOCK_INSTANCE,
-  INVOICE_MOCK_PAYLOAD,
 } = require('../mocks/payments');
 
 describe('Testing Payments CRUD', () => {
   const paymentInstanceKeys = Object.keys(PAYMENT_MOCK_INSTANCE);
-  const invoiceInstanceKeys = Object.keys(INVOICE_MOCK_INSTANCE);
-  let paymentIdCreated = '';
 
   it('A list of all payments should be returned', async () => {
     const response = await request(app)
@@ -40,17 +36,6 @@ describe('Testing Payments CRUD', () => {
       expect(response.body).toHaveProperty(key);
     });
     expect(recover.body.status).toBe('CREATED');
-    paymentIdCreated = response.body.id;
-  });
-
-  it('A payment should be confirmed', async () => {
-    const response = await request(app)
-      .post(`/api/payments/confirm/${paymentIdCreated}`)
-      .send(INVOICE_MOCK_PAYLOAD);
-
-    invoiceInstanceKeys.forEach((key) => {
-      expect(response.body).toHaveProperty(key);
-    });
   });
 
   it('A payment should be canceled', async () => {

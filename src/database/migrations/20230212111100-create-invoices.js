@@ -15,12 +15,13 @@ module.exports = {
       cpf: {
         type: Sequelize.STRING,
       },
-      payment_id: {
+      paymentId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'payments',
           key: 'id',
         },
+        field: 'payment_id',
       },
       buyerAddress: {
         type: Sequelize.JSON,

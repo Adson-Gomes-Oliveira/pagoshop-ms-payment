@@ -1,4 +1,4 @@
-const { Payments, Invoices } = require('../database/models');
+const { Payments } = require('../database/models');
 const database = require('../database/models');
 const validate = require('../validations/payment.validations');
 
@@ -26,23 +26,6 @@ const create = async (payload) => {
   return response;
 };
 
-const confirmPayment = async (id, payload) => {
-  validate.confirmPaymentValidation(payload);
-
-  const transaction = database.sequelize.transaction(async (t) => {
-    await Payments.update(
-      { status: 'CONFIRMED' },
-      { where: { id } },
-      { transaction: t },
-    );
-
-    const response = await Invoices.create(payload, { transaction: t });
-    return response;
-  });
-
-  return transaction;
-};
-
 const cancelPayment = async (id) => {
   const transaction = database.sequelize.transaction(async (t) => {
     await Payments.update(
@@ -62,6 +45,5 @@ module.exports = {
   findAll,
   findById,
   create,
-  confirmPayment,
   cancelPayment,
 };

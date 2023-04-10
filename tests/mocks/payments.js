@@ -19,9 +19,9 @@ const PAYMENT_MOCK_PAYLOAD = {
 
 const INVOICE_MOCK_INSTANCE = {
   id: 1,
-  processHash: 'sad1s21a2dd12s1a3a3s2s22',
   name: 'Larissa Velch',
   cpf: '98845671466',
+  status: 'CREATED',
   buyerAddress: {
     street: 'no_street',
     number: 'no_number',
@@ -41,9 +41,9 @@ const INVOICE_MOCK_INSTANCE = {
 };
 
 const INVOICE_MOCK_PAYLOAD = {
-  processHash: 'sad1s21a2dd12s1a3a3s2s22',
   name: 'Larissa Velch',
   cpf: '98845671466',
+  status: 'CREATED',
   buyerAddress: {
     street: 'no_street',
     number: 'no_number',

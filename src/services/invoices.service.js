@@ -1,7 +1,7 @@
 const { Invoices } = require('../database/models');
 
-const findByCPF = async (cpf) => {
-  const response = await Invoices.find({ where: { cpf } });
+const findByCPF = async (payload) => {
+  const response = await Invoices.findAll({ where: { cpf: payload.cpf } });
   return response;
 };
 

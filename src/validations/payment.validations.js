@@ -11,7 +11,7 @@ const payloadValidation = (payload) => {
     cvv: JOI.string().required(),
   }).validate(payload);
 
-  if (error) throw customError(error.message, HTTPStatus.UN_ENTITY);
+  if (error) throw customError(error.message.replace(/\\|"/g, ''), HTTPStatus.UN_ENTITY);
   return null;
 };
 
@@ -20,6 +20,7 @@ const confirmPaymentValidation = (payload) => {
     name: JOI.string().required(),
     cpf: JOI.string().required(),
     paymentId: JOI.number().required(),
+    status: JOI.string(),
     buyerAddress: JOI.object({
       street: JOI.string().required(),
       number: JOI.string().required(),
@@ -36,7 +37,7 @@ const confirmPaymentValidation = (payload) => {
     })).required(),
   }).validate(payload);
 
-  if (error) throw customError(error.message, HTTPStatus.UN_ENTITY);
+  if (error) throw customError(error.message.replace(/\\|"/g, ''), HTTPStatus.UN_ENTITY);
 };
 
 module.exports = {
