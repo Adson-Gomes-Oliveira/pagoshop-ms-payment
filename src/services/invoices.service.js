@@ -1,7 +1,11 @@
 const { Invoices } = require('../database/models');
+const CustomError = require('../helpers/error.custom');
+const HTTPStatus = require('../helpers/HTTP.status');
 
 const findByCPF = async (payload) => {
   const response = await Invoices.findAll({ where: { cpf: payload.cpf } });
+
+  if (response.length === 0) throw CustomError('Content not found', HTTPStatus.NO_CONTENT);
   return response;
 };
 
@@ -18,6 +22,8 @@ const createInvoiceDefault = async () => {
 };
 
 const updateInvoice = async (id, payload) => {
+  if (!id || !payload) throw CustomError('id or payload not found', HTTPStatus.BAD_REQUEST);
+
   const response = await Invoices.update(
     { ...payload.messageContent },
     { where: { id } },

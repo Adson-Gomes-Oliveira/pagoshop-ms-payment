@@ -17,54 +17,7 @@ const PAYMENT_MOCK_PAYLOAD = {
   cvv: '657',
 };
 
-const INVOICE_MOCK_INSTANCE = {
-  id: 1,
-  name: 'Larissa Velch',
-  cpf: '98845671466',
-  status: 'CREATED',
-  buyerAddress: {
-    street: 'no_street',
-    number: 'no_number',
-    cep: 'no_cep',
-    more_info: 'no_info',
-    city: 'no_city',
-    state: 'SP',
-  },
-  productsOrdered: [
-    {
-      product: 'Samsung S20 FE',
-      quantity: 10,
-      price: 1500,
-    },
-  ],
-  paymentId: 1,
-};
-
-const INVOICE_MOCK_PAYLOAD = {
-  name: 'Larissa Velch',
-  cpf: '98845671466',
-  status: 'CREATED',
-  buyerAddress: {
-    street: 'no_street',
-    number: 'no_number',
-    cep: 'no_cep',
-    more_info: 'no_info',
-    city: 'no_city',
-    state: 'SP',
-  },
-  productsOrdered: [
-    {
-      product: 'Samsung S20 FE',
-      quantity: 10,
-      price: 1500,
-    },
-  ],
-  paymentId: 1,
-};
-
 module.exports = {
   PAYMENT_MOCK_INSTANCE,
   PAYMENT_MOCK_PAYLOAD,
-  INVOICE_MOCK_INSTANCE,
-  INVOICE_MOCK_PAYLOAD,
 };
