@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 const Invoices = (sequelize, DataTypes) => {
   const Invoices = sequelize.define('Invoices', {
+    email: DataTypes.STRING,
     name: DataTypes.STRING,
     cpf: DataTypes.STRING,
     buyerAddress: DataTypes.JSON,

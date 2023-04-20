@@ -11,6 +11,7 @@ const findByCPF = async (payload) => {
 
 const createInvoiceDefault = async () => {
   const response = await Invoices.create({
+    email: '',
     name: '',
     cpf: '',
     buyerAddress: {},
