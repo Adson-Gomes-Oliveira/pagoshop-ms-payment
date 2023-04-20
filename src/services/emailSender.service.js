@@ -28,6 +28,4 @@ async function emailSender(targetEmail, pdfInvoicePath) {
   });
 }
 
-emailSender('danielmacield@gmail.com');
-
 module.exports = emailSender;

@@ -1,6 +1,7 @@
 const { Invoices } = require('../database/models');
 const CustomError = require('../helpers/error.custom');
 const HTTPStatus = require('../helpers/HTTP.status');
+const emailSender = require('./emailSender.service');
 
 const findByCPF = async (payload) => {
   const response = await Invoices.findAll({ where: { cpf: payload.cpf } });
@@ -41,6 +42,8 @@ const updateInvoice = async (id, payload) => {
       { status: 'CREATED' },
       { where: { id: invoiceUpdated.id } },
     );
+
+    
   }
 
   return response;
