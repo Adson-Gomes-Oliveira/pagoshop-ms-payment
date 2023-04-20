@@ -1,6 +1,4 @@
 const PDFPrinter = require('pdfmake');
-const { v4: uuid } = require('uuid');
-const fs = require('fs');
 
 const fonts = {
   Sono: {
@@ -10,8 +8,8 @@ const fonts = {
 };
 
 const generatePDF = async (contentInfo) => {
-  const addressInfos = JSON.parse(contentInfo.buyer_address);
-  const productInfos = JSON.parse(contentInfo.products_ordered);
+  const addressInfos = contentInfo.buyerAddress;
+  const productInfos = contentInfo.productsOrdered;
 
   const productFormatedToInvoice = productInfos.map((product) => [
     product.product,
@@ -66,13 +64,10 @@ const generatePDF = async (contentInfo) => {
 
   const options = {};
 
-  const pdfName = `templates/temp_invoices/${uuid()}.pdf`;
-
   const pdfDoc = printer.createPdfKitDocument(doc, options);
-  await pdfDoc.pipe(fs.createWriteStream(pdfName));
   await pdfDoc.end();
 
-  return pdfName;
+  return pdfDoc;
 };
 
 // const testAddress = JSON.stringify({

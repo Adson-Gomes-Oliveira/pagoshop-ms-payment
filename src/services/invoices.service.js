@@ -2,6 +2,7 @@ const { Invoices } = require('../database/models');
 const CustomError = require('../helpers/error.custom');
 const HTTPStatus = require('../helpers/HTTP.status');
 const emailSender = require('./emailSender.service');
+const generatePDF = require('../helpers/create.pdf');
 
 const findByCPF = async (payload) => {
   const response = await Invoices.findAll({ where: { cpf: payload.cpf } });
@@ -43,7 +44,8 @@ const updateInvoice = async (id, payload) => {
       { where: { id: invoiceUpdated.id } },
     );
 
-    
+    const pdfContent = await generatePDF(invoiceUpdated.dataValues);
+    await emailSender(invoiceUpdated.dataValues.email, pdfContent);
   }
 
   return response;

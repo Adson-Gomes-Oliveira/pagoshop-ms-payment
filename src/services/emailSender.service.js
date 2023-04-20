@@ -1,9 +1,10 @@
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const { v4: uuid } = require('uuid');
 
 const htmlTemplateForInvoice = fs.readFileSync('templates/invoiceMailTemplate.html');
 
-async function emailSender(targetEmail, pdfInvoicePath) {
+async function emailSender(targetEmail, pdfInvoiceContent) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -21,7 +22,8 @@ async function emailSender(targetEmail, pdfInvoicePath) {
     html: htmlTemplateForInvoice,
     attachments: [
       {
-        filename: pdfInvoicePath,
+        filename: `invoices_pdf/${uuid()}.pdf`,
+        content: pdfInvoiceContent,
         contentType: 'application/pdf',
       },
     ],
