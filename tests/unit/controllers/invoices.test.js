@@ -4,7 +4,7 @@ const {
   INVOICE_MOCK_INSTANCE,
   INVOICE_MOCK_PAYLOAD,
   DEFAULT_INVOICE_MOCK_INSTANCE,
-} = require('../../mocks/invoices');
+} = require('../../__mocks__/invoices');
 const HTTPStatus = require('../../../src/helpers/HTTP.status');
 
 describe('Testing Payments Controllers', () => {

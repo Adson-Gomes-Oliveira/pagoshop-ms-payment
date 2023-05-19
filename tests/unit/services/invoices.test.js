@@ -5,7 +5,7 @@ const {
   INVOICE_MOCK_PAYLOAD,
   DEFAULT_INVOICE_MOCK_INSTANCE,
   MESSAGE_MOCK_TO_INVOICE,
-} = require('../../mocks/invoices');
+} = require('../../__mocks__/invoices');
 const HTTPStatus = require('../../../src/helpers/HTTP.status');
 
 describe('Testing Invoices Services', () => {
@@ -61,11 +61,21 @@ describe('Testing Invoices Services', () => {
 
   describe('PUT: A invoice', () => {
     beforeAll(() => {
+      jest.mock('../../../src/helpers/create.pdf', () => ({
+        generatePDF: jest.fn().mockReturnValue(),
+      }));
+
+      jest.mock('../../../src/services/emailSender.service', () => ({
+        emailSender: jest.fn().mockReturnValue(),
+      }));
+
       jest.spyOn(Invoices, 'update').mockResolvedValueOnce(INVOICE_MOCK_INSTANCE)
         .mockResolvedValue([1]);
 
-      jest.spyOn(Invoices, 'findByPk').mockImplementation(() => ({
+      jest.spyOn(Invoices, 'findByPk').mockImplementationOnce(() => ({
         dataValues: { ...INVOICE_MOCK_INSTANCE },
+      })).mockImplementation(() => ({
+        dataValues: { ...INVOICE_MOCK_INSTANCE, testProp: '' },
       }));
     });
 
@@ -77,8 +87,7 @@ describe('Testing Invoices Services', () => {
       const payment = await InvoicesServices
         .updateInvoice(INVOICE_MOCK_INSTANCE.id, MESSAGE_MOCK_TO_INVOICE);
 
-      expect(payment).toHaveProperty('productsOrdered');
-      expect(payment.productsOrdered).toBeInstanceOf(Array);
+      expect(payment).toEqual(INVOICE_MOCK_INSTANCE);
     });
 
     it('should fail when no id or payload is provided', async () => {
@@ -88,6 +97,11 @@ describe('Testing Invoices Services', () => {
         expect(error.status).toBe(HTTPStatus.BAD_REQUEST);
         expect(error.message).toBe('id or payload not found');
       }
+    });
+
+    it('should not update to CREATED when if conditions are false', async () => {
+      await InvoicesServices.updateInvoice(INVOICE_MOCK_INSTANCE.id, MESSAGE_MOCK_TO_INVOICE);
+      expect(Invoices.update).toHaveBeenCalledTimes(3);
     });
   });
 });

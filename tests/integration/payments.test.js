@@ -4,7 +4,7 @@ const HTTPStatus = require('../../src/helpers/HTTP.status');
 const {
   PAYMENT_MOCK_INSTANCE,
   PAYMENT_MOCK_PAYLOAD,
-} = require('../mocks/payments');
+} = require('../__mocks__/payments');
 
 describe('Testing Payments CRUD', () => {
   const paymentInstanceKeys = Object.keys(PAYMENT_MOCK_INSTANCE);

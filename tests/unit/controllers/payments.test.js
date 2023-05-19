@@ -2,7 +2,7 @@ const PaymentsServices = require('../../../src/services/payments.service');
 const PaymentsControllers = require('../../../src/controllers/payments.controller');
 const {
   PAYMENT_MOCK_INSTANCE, PAYMENT_MOCK_PAYLOAD,
-} = require('../../mocks/payments');
+} = require('../../__mocks__/payments');
 const HTTPStatus = require('../../../src/helpers/HTTP.status');
 
 describe('Testing Payments Controllers', () => {
